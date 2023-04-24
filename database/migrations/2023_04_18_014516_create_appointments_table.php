@@ -15,9 +15,15 @@ return new class extends Migration
     {
         Schema::create('appointments', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->date('day');
-            $table->string('hour')->unique();
+            $table->integer('child_parent_id');
+            $table->integer('doctor_id');
+            $table->foreignId('appointment_type_id');
+            $table->dateTime('date_of_appointment');
+            $table->boolean('completed')->default(false);
+            $table->boolean('cancelled')->default(false);
+            $table->boolean('no_show')->default(false);
+            // $table->date('day');
+            // $table->string('hour')->unique();
             $table->timestamps();
         });
     }

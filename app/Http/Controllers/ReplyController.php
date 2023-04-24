@@ -39,12 +39,12 @@ class ReplyController extends Controller
     // create a reply
     public function store(Request $request)
     {
-        $reply = Reply::find($request->comment_id);
+        $comment = Comment::find($request->comment_id);
 
-        if(!$reply)
+        if(!$comment)
         {
             return response([
-                'message' => 'reply not found.'
+                'message' => 'comment not found.'
             ], 403);
         }
 
@@ -151,12 +151,12 @@ class ReplyController extends Controller
     // create a reply
     public function store_1(Request $request)
     {
-        $reply = reply::find($request->comment_id);
+        $comment = Comment::find($request->comment_id);
 
-        if(!$reply)
+        if(!$comment)
         {
             return response([
-                'message' => 'reply not found.'
+                'message' => 'comment not found.'
             ], 403);
         }
 

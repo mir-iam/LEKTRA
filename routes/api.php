@@ -52,6 +52,9 @@ Route::group(['middleware'=>'jwt.role:doctor','jwt.auth' ,'prefix'=>'doctor'], f
     Route::put('/reports/{report_id}', [ReportController::class, 'update']); // update report
     Route::delete('/reports/{report_id}', [ReportController::class, 'destroy']); // delete report
 
+
+    //images
+
     Route::get('/reports/{report_id}/images', [ImageController::class, 'index']); // all images of a report
     Route::post('/AddImage', [ImageController::class, 'store']); // create image in a report
     Route::put('/images/{image_id}', [ImageController::class, 'update']); // update a image
@@ -138,7 +141,7 @@ Route::group(['middleware'=>'jwt.role:doctor','jwt.auth' ,'prefix'=>'doctor'], f
     Route::post('AddLike', [LikeController::class, 'likeOrUnlike']); // like or dislike back a post
 
 // parent appointments
-Route::post('/appointments',[AppointmentController::class, 'store']); // create an appointment
+//Route::post('/appointments',[AppointmentController::class, 'store']); // create an appointment
 Route::get('/appointments',[AppointmentController::class,'index']); //retreive all appointments
 Route::get('/appointments/{appointment_id}',[AppointmentController::class,'show']); //retrieve a specific appointment
  Route::put('/appointments/{appointment_id}',[AppointmentController::class,'update']); //update (delay) an appointments

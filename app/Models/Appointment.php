@@ -21,4 +21,9 @@ class Appointment extends Model
         return $this->belongsTo(Doctor::class);
     }
 
+    public function child_parent()
+{
+    return $this->belongsTo(ChildParent::class);
+}
+
 }

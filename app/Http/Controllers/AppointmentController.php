@@ -39,7 +39,7 @@ class AppointmentController extends Controller
         $attrs = $request->validate([
             'name' => 'required|string|between:2,100' ,
             'day' => 'date|between:2,100',
-            'hour' => 'string|between:2,100|unique:appointments',
+            'hour' => 'string|between:2,100',
         ]);
      
 

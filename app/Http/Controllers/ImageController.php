@@ -53,7 +53,7 @@ class ImageController extends Controller
             'image' => '',
             'description' => 'string',
             'title'=>'string',
-            'taken_at'=>''
+            'taken_at'=>'date'
 
         ]);
         $image = $this->saveImage($request->image, 'images');
@@ -103,10 +103,10 @@ class ImageController extends Controller
             'image' => '',
             'description' => 'string',
             'title'=>'string',
-            'taken_at'=>''
+            'taken_at'=>'date'
         ]);
-
-        $image->update([
+        $image = $this->saveImage($request->image,'images');
+        auth()->user()->update([
             'image' => $image,
             'report_id' => $request->report_id,
             'child_parent_id' => auth()->user()->id,
@@ -115,7 +115,7 @@ class ImageController extends Controller
             'description' => $attrs['description'],
             'taken_at' => $attrs['taken_at']
         ]);
-
+        
         return response([
             'message' => 'image updated.'
         ], 200);
