@@ -56,6 +56,7 @@ Route::group(['middleware'=>'jwt.role:doctor','jwt.auth' ,'prefix'=>'doctor'], f
     //images
 
     Route::get('/reports/{report_id}/images', [ImageController::class, 'index']); // all images of a report
+    Route::get('/images/{doctor_id}', [ImageController::class, 'show']); // get single image
     Route::post('/AddImage', [ImageController::class, 'store']); // create image in a report
     Route::put('/images/{image_id}', [ImageController::class, 'update']); // update a image
     Route::delete('/images/{image_id}', [ImageController::class, 'destroy']); // delete a image
@@ -147,7 +148,7 @@ Route::get('/appointments/{appointment_id}',[AppointmentController::class,'show'
  Route::put('/appointments/{appointment_id}',[AppointmentController::class,'update']); //update (delay) an appointments
  Route::delete('/appointments/{appointment_id}',[AppointmentController::class,'destroy']); //delete (cancel) an appointments
 
-
+ Route::get('/appointments',[ChildParentController::class,'index']); //retreive all doctors
 
     
 

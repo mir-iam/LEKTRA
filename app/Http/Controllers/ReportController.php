@@ -23,20 +23,42 @@ class ReportController extends Controller
         public function index()
         {
             return response([
-                'reports' => Report::orderBy('created_at', 'desc')//->with('doctor:id,child_name,child_image')
-                
-                ->get()
+                'reports' => Report::orderBy('created_at', 'desc')->where('doctor_id', auth()->user()->id)->get()
             ], 200);
         }
        
-    
-        // get single report doctor
-        public function show($id)
+    // get single report doctor
+    public function show(Request $request, $id)
+    {
+        $report = Report::find($id);
+
+        if(!$report)
         {
             return response([
-                'report' => Report::where('id', $id)->get()
-            ], 200);
+                'message' => 'Report not found.'
+            ], 403);
         }
+
+        if($report->doctor_id != auth()->user()->id)
+        {
+            return response([
+                'message' => 'Permission denied.'
+            ], 403);
+        }
+        return response([
+            'report' => Report::where('id', $id)->get()
+        ], 200);
+    }
+    
+
+
+
+
+
+
+
+
+
          // get single report parent
          public function show_1($id)
          {
@@ -64,10 +86,9 @@ class ReportController extends Controller
                 'diagnosis'=> 'required|string',
             ]);
 
-            $image = $this->saveImage($request->image,'reports');
+            $image = $this->saveImage($request->child_image,'reports');
             $report = Report::create([
                 'child_parent_id' => $request->child_parent_id,
-                'image_id' => $request->image_id,
                 'doctor_id' => auth()->user()->id,
                 'child_image' => $image,
                 'child_name' => $attrs['child_name'],

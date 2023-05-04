@@ -28,8 +28,30 @@ class ImageController extends Controller
         }
 
         return response([
-            'images' => $report->images()//->with('child_parent:id,name,image')
+            'images' => $report->images()->where('doctor_id',auth()->user()->id)
             ->get()
+        ], 200);
+    }
+    //get single image
+    public function show(Request $request, $id)
+    {
+        $image = Image::find($id);
+
+        if(!$image)
+        {
+            return response([
+                'message' => 'image not found.'
+            ], 403);
+        }
+
+        if($image->doctor_id != auth()->user()->id)
+        {
+            return response([
+                'message' => 'Permission denied.'
+            ], 403);
+        }
+        return response([
+            'image' => Image::where('id', $id)->get()
         ], 200);
     }
 
