@@ -164,4 +164,7 @@ Route::get('/appointments/{appointment_id}',[AppointmentController::class,'show'
    
 
 //});
+
+// uploadimage
+Route::post('/uploadimage', [ImageController::class, 'uploadimage']);
    
