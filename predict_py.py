@@ -3,7 +3,9 @@ import numpy as np
 import cv2
 from skimage.feature import hog
 from skimage import feature
-import skimage.io as io
+from torchvision import transforms
+from PIL import Image
+
 
 model=pickle.load(open('model_93.pkl','rb'))
 eye_cascade = cv2.CascadeClassifier('haarcascade_eye.xml')
@@ -11,7 +13,8 @@ eye_cascade = cv2.CascadeClassifier('haarcascade_eye.xml')
 def predict (img):
   results=[]
   prediction='Normal'
-  image=cv2.imread(img)
+  image=Image.open(img)
+  image = np.asarray(image)
   rgbimg=cv2.cvtColor(image,cv2.COLOR_BGR2RGB)
 
   eyes = eye_cascade.detectMultiScale(rgbimg, scaleFactor = 1.1, minNeighbors = 15)
@@ -25,7 +28,7 @@ def predict (img):
         prediction = 'Leukocoria'
   except:
     prediction="Can't detect eyes from this picture"
-  
+
   return prediction
 
 class LocalBinaryPatterns:
@@ -47,7 +50,7 @@ class LocalBinaryPatterns:
         return hist
 
 
-def read_images(img):   
+def read_images(img):
     desc = LocalBinaryPatterns(24, 8)
     resized_img = cv2.resize(img, (100, 50))
     test_img = cv2.cvtColor(resized_img, cv2.COLOR_BGR2RGB)

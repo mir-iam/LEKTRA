@@ -7,6 +7,7 @@ Original file is located at
     https://colab.research.google.com/drive/1y5JydjEyl6pBAiAEQHDzOgDwZQAMs-pj
 """
 
+
 from flask import *
 from predict import predictImage #From predict.py import function named predict
 
@@ -16,7 +17,8 @@ app = Flask(__name__)
 def success():
   if request.method == 'POST':
      f=request.files['file']
-  return predict(f)
+  return predictImage(f)
 
 if __name__== '__main__':
-  app.run(host = '0.0.0.0 or whatever',debug = True)
+    app.debug = True
+    app.run('0.0.0.0')

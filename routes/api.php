@@ -12,6 +12,9 @@ use App\Http\Controllers\ReplyController;
 use App\Http\Controllers\HospitalController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\FundusController;
+use App\Http\Controllers\PhoneImageController;
+
 
 use App\Models\ChildParent;
 
@@ -166,5 +169,6 @@ Route::get('/appointments/{appointment_id}',[AppointmentController::class,'show'
 //});
 
 // uploadimage
-Route::post('/uploadimage', [ImageController::class, 'uploadimage']);
+Route::post('/uploadimage', [PhoneImageController::class, 'uploadimage']);
+Route::post('/uploadfundus', [FundusController::class, 'uploadfundus']);
    

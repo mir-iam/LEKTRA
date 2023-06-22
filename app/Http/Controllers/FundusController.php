@@ -8,9 +8,9 @@ use Illuminate\Support\Facades\Http;
 
 class FundusController extends Controller
 {
-    public function uploadimage(FundusRequest $request){
+    public function uploadfundus(FundusRequest $request){
         $photo = fopen($request->file("file"), 'rb');
-        $response = Http::attach('file', $photo)->post("http://127.0.0.1:5000/predict");
+        $response = Http::attach('file', $photo)->post("http://127.0.0.1:5000/success");
         fclose($photo);
         return $response;
     }
